@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://asafa24.github.io'
+  site: 'https://z-gallery1.vercel.app', // Ton URL Vercel
 });
