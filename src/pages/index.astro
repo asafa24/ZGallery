@@ -1,17 +1,198 @@
 ---
+import { Image } from "astro:assets";
 
+import logo from "../assets/images/logo.png";
+import kaiju from "../assets/images/kaiju.jpg";
+import mairie from "../assets/images/mairie.jpg";
+import citizen from "../assets/images/citizen.jpg";
+import darkRain from "../assets/images/dark-rain.jpg";
+import gareDeLyon from "../assets/images/gare-de-lyon.jpg";
+import leaves from "../assets/images/leaves.jpg";
+import mercure from "../assets/images/mercure.jpg";
+import night from "../assets/images/night.jpg";
+
+const photos = [
+	{
+		src: kaiju,
+		alt: "Kaiju Watch",
+		info: "Exposition sur l'histoire des mangas, Musée Guimet",
+	},
+	{
+		src: mairie,
+		alt: "Night Hall",
+		info: "Mairie de Montreuil la nuit",
+	},
+	{
+		src: citizen,
+		alt: "Urban Flight",
+		info: "CitizenM Hôtel, Paris",
+	},
+	{ src: darkRain, alt: "Neon Shadows", info: "Rue sombre sous les lumières, République" },
+	{
+		src: gareDeLyon,
+		alt: "Time Keeper",
+		info: "La magnifique horloge de la Gare de Lyon",
+	},
+	{
+		src: leaves,
+		alt: "Summer Breath",
+		info: "Nature en pleine ville",
+	},
+	{
+		src: mercure,
+		alt: "Golden Chamber",
+		info: "Architecture moderne et dorée",
+	},
+	{ src: night, alt: "Blue Hour City", info: "L'heure bleue sur les toits" },
+];
 ---
 
-<html lang="en">
+<html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ZGallery</title>
+<style>
+    html {
+        background: #020408;
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll; /* Force une seule barre de scroll */
+        overflow-x: hidden;
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        color: white;
+        font-family: system-ui, sans-serif;
+        overflow: visible; /* Empêche la création d'un deuxième contexte de scroll */
+    }
+
+    section {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        position: relative;
+    }
+
+    #cursor-info {
+        position: fixed;
+        pointer-events: none;
+        background: rgba(255, 255, 255, 0.95);
+        color: #020408;
+        padding: 10px 18px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        z-index: 9999;
+        display: none;
+        white-space: nowrap;
+        transform: translate(20px, 20px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .photo-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img-container {
+        overflow: hidden;
+        border-radius: 4px;
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        cursor: crosshair;
+    }
+
+    .img-container:hover {
+        transform: scale(1.03);
+    }
+
+    img {
+        max-width: 90vw;
+        max-height: 75vh;
+        width: auto;
+        height: auto;
+        display: block;
+    }
+
+    .caption {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #445668;
+    }
+
+    .info-link {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        color: #445668;
+        text-decoration: none;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        z-index: 100;
+    }
+</style>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div id="cursor-info"></div>
+
+		<a href="/about" class="info-link">Contexte</a>
+
+		<section>
+			<Image src={logo} alt="ZGallery Logo" width={500} />
+		</section>
+
+		{
+			photos.map((photo) => (
+				<section>
+					<div class="photo-wrapper" data-info={photo.info}>
+						<div class="img-container">
+							<Image
+								src={photo.src}
+								alt={photo.alt}
+								width={1600}
+							/>
+						</div>
+						<div class="caption">{photo.alt}</div>
+					</div>
+				</section>
+			))
+		}
+
+		<script>
+			const cursorInfo = document.getElementById("cursor-info");
+			const imgContainers = document.querySelectorAll(".img-container");
+
+			document.addEventListener("mousemove", (e) => {
+				cursorInfo.style.left = `${e.clientX}px`;
+				cursorInfo.style.top = `${e.clientY}px`;
+			});
+
+			imgContainers.forEach((container) => {
+				container.addEventListener("mouseenter", () => {
+					const info = container
+						.closest(".photo-wrapper")
+						.getAttribute("data-info");
+					cursorInfo.textContent = info;
+					cursorInfo.style.display = "block";
+				});
+
+				container.addEventListener("mouseleave", () => {
+					cursorInfo.style.display = "none";
+				});
+			});
+		</script>
 	</body>
 </html>

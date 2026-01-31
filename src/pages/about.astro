@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Contexte | ZGallery</title>
+		<style>
+			body {
+				background: #020408; /* Même bleu nuit que la galerie */
+				color: white;
+				font-family: system-ui, sans-serif;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				min-height: 100vh;
+				padding: 4rem 2rem;
+				box-sizing: border-box;
+			}
+
+			.content {
+				max-width: 650px; /* Largeur idéale pour la lecture */
+				width: 100%;
+			}
+
+			.logo-link {
+				display: block;
+				margin-bottom: 3rem;
+				transition: opacity 0.3s;
+			}
+			.logo-link:hover { opacity: 0.8; }
+			
+			.logo-small {
+				max-width: 180px;
+				height: auto;
+			}
+
+			h1 {
+				font-size: 2.5rem;
+				letter-spacing: -1px;
+				margin-bottom: 2rem;
+				color: #fff;
+			}
+
+			/* C'est ici que tu vas écrire */
+			.text-zone {
+				line-height: 1.8;
+				font-size: 1.1rem;
+				color: #cbd5e1; /* Gris clair pour que ce soit moins agressif que le blanc pur */
+			}
+
+			.text-zone p {
+				margin-bottom: 1.5rem;
+			}
+
+			.highlight {
+				color: #0084ff; /* Un rappel du bleu pour tes mots clés */
+				font-weight: 600;
+			}
+
+			.back-btn {
+				margin-top: 4rem;
+				display: inline-block;
+				color: #445668;
+				text-decoration: none;
+				font-size: 0.8rem;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				border-bottom: 1px solid transparent;
+				transition: 0.3s;
+			}
+			.back-btn:hover {
+				color: white;
+				border-color: white;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<a href="/" class="logo-link">
+			<Image src={logo} alt="Retour ZGallery" class="logo-small" />
+		</a>
+
+		<div class="content">
+			<h1>L'histoire derrière ZGallery</h1>
+			
+			<div class="text-zone">
+				<p>
+					Mets ici ton texte sur ta <span class="highlight">passion</span> pour la photo.
+				</p>
+				<p>
+					Yessir i love photography.
+				</p>
+				<p>
+					Everyone keeps telling me how my story is supposed to go, nahh imma do my own thing.
+				</p>
+			</div>
+
+			<a href="/" class="back-btn">← Retourner à la galerie</a>
+		</div>
+
+	</body>
+</html>
