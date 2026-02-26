@@ -11,6 +11,13 @@ import leaves from "../assets/images/leaves.jpg";
 import mercure from "../assets/images/mercure.jpg";
 import night from "../assets/images/night.jpg";
 
+import marseille from "../assets/images/marseille.jpg";
+import castle from "../assets/images/castle.jpg";
+import nogent from "../assets/images/nogent.jpg";
+import lesdocks from "../assets/images/lesdocks.jpg";
+import champigny from "../assets/images/champigny.jpg";
+
+
 const photos = [
 	{
 		src: kaiju,
@@ -44,7 +51,11 @@ const photos = [
 		info: "Architecture moderne et dorée",
 	},
 	{ src: night, alt: "Blue Hour City", info: "L'heure bleue sur les toits" },
-];
+	{ src: marseille, alt: "Marseille", info: "Vue sur Marseille" },
+    { src: castle, alt: "Castle", info: "Une belle demeure" },
+    { src: nogent, alt: "Nogent", info: "Le pont de Nogent" },
+    { src: lesdocks, alt: "Les Docks", info: "Les Docks de la Joliette" },
+    { src: champigny, alt: "Champigny", info: "Vue sur un batiment de Champigny" },];
 ---
 
 <html lang="fr">
@@ -56,7 +67,7 @@ const photos = [
     html {
         background: #020408;
         scroll-snap-type: y mandatory;
-        overflow-y: scroll; /* Force une seule barre de scroll */
+        overflow-y: scroll;
         overflow-x: hidden;
         height: 100%;
     }
@@ -67,7 +78,7 @@ const photos = [
         height: 100%;
         color: white;
         font-family: system-ui, sans-serif;
-        overflow: visible; /* Empêche la création d'un deuxième contexte de scroll */
+        overflow: visible;
     }
 
     section {
