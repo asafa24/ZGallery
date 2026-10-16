@@ -2,39 +2,68 @@
 import { Image } from "astro:assets";
 
 import logo from "../assets/images/logo.png";
+import bally from "../assets/images/bally.jpg";
+import basket from "../assets/images/basket.jpg";
+import mansion from "../assets/images/mansion.jpg";
+import nighty from "../assets/images/nighty.jpg";
+import nuage from "../assets/images/nuage.jpg";
+import pink from "../assets/images/pink.jpg";
 import kaiju from "../assets/images/kaiju.jpg";
-import mairie from "../assets/images/mairie.jpg";
 import citizen from "../assets/images/citizen.jpg";
 import darkRain from "../assets/images/dark-rain.jpg";
 import gareDeLyon from "../assets/images/gare-de-lyon.jpg";
 import leaves from "../assets/images/leaves.jpg";
-import mercure from "../assets/images/mercure.jpg";
-import night from "../assets/images/night.jpg";
 
 import marseille from "../assets/images/marseille.jpg";
 import castle from "../assets/images/castle.jpg";
 import nogent from "../assets/images/nogent.jpg";
 import lesdocks from "../assets/images/lesdocks.jpg";
-import champigny from "../assets/images/champigny.jpg";
 
 
 const photos = [
+	{
+		src: bally,
+		alt: "Bally",
+		info: "Architecture et lumières urbaines",
+	},
+	{
+		src: basket,
+		alt: "Basket",
+		info: "Un panier de basket dans la ville",
+	},
+	{
+		src: mansion,
+		alt: "Mansion",
+		info: "Une demeure au charme historique",
+	},
+	{
+		src: nighty,
+		alt: "Night City",
+		info: "La ville illuminée à la nuit tombée",
+	},
+	{
+		src: nuage,
+		alt: "Clouds",
+		info: "Nuages dans le ciel",
+	},
+	{
+		src: pink,
+		alt: "Pink Light",
+		info: "Reflets roses dans la ville",
+	},
 	{
 		src: kaiju,
 		alt: "Kaiju Watch",
 		info: "Exposition sur l'histoire des mangas, Musée Guimet",
 	},
 	{
-		src: mairie,
-		alt: "Night Hall",
-		info: "Mairie de Montreuil la nuit",
-	},
-	{
 		src: citizen,
 		alt: "Urban Flight",
 		info: "CitizenM Hôtel, Paris",
 	},
-	{ src: darkRain, alt: "Neon Shadows", info: "Rue sombre sous les lumières, République" },
+	{   src: darkRain,
+        alt: "Neon Shadows",
+        info: "Rue sombre sous les lumières, République" },
 	{
 		src: gareDeLyon,
 		alt: "Time Keeper",
@@ -45,116 +74,20 @@ const photos = [
 		alt: "Summer Breath",
 		info: "Nature en pleine ville",
 	},
-	{
-		src: mercure,
-		alt: "Golden Chamber",
-		info: "Architecture moderne et dorée",
-	},
-	{ src: night, alt: "Blue Hour City", info: "L'heure bleue sur les toits" },
 	{ src: marseille, alt: "Marseille", info: "Vue sur Marseille" },
     { src: castle, alt: "Castle", info: "Une belle demeure" },
     { src: nogent, alt: "Nogent", info: "Le pont de Nogent" },
     { src: lesdocks, alt: "Les Docks", info: "Les Docks de la Joliette" },
-    { src: champigny, alt: "Champigny", info: "Vue sur un batiment de Champigny" },];
+];
 ---
 
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../styles/style.css" />
 		<title>ZGallery</title>
-<style>
-    html {
-        background: #020408;
-        scroll-snap-type: y mandatory;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 100%;
-    }
 
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        color: white;
-        font-family: system-ui, sans-serif;
-        overflow: visible;
-    }
-
-    section {
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        position: relative;
-    }
-
-    #cursor-info {
-        position: fixed;
-        pointer-events: none;
-        background: rgba(255, 255, 255, 0.95);
-        color: #020408;
-        padding: 10px 18px;
-        border-radius: 30px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        z-index: 9999;
-        display: none;
-        white-space: nowrap;
-        transform: translate(20px, 20px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .photo-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .img-container {
-        overflow: hidden;
-        border-radius: 4px;
-        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        cursor: crosshair;
-    }
-
-    .img-container:hover {
-        transform: scale(1.03);
-    }
-
-    img {
-        max-width: 90vw;
-        max-height: 75vh;
-        width: auto;
-        height: auto;
-        display: block;
-    }
-
-    .caption {
-        margin-top: 1.5rem;
-        font-size: 0.8rem;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        color: #445668;
-    }
-
-    .info-link {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        color: #445668;
-        text-decoration: none;
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        z-index: 100;
-    }
-</style>
 	</head>
 	<body>
 		<div id="cursor-info"></div>
@@ -193,12 +126,11 @@ const photos = [
 
 			imgContainers.forEach((container) => {
 				container.addEventListener("mouseenter", () => {
-					const info = container
-						.closest(".photo-wrapper")
-						.getAttribute("data-info");
+					const info = container.closest(".photo-wrapper").getAttribute("data-info");
 					cursorInfo.textContent = info;
 					cursorInfo.style.display = "block";
 				});
+                
 
 				container.addEventListener("mouseleave", () => {
 					cursorInfo.style.display = "none";
